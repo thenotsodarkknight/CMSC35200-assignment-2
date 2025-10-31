@@ -124,6 +124,9 @@ Screenplay Elements:
 
 **Analysis**: GPT-2 wins slightly due to optimized natural language vocabulary, but nanochat is competitive with larger modern tokenizers.
 
+![Movie Scripts Compression Comparison](outputs/compression_comparison.png)
+*Figure 2.1: Compression efficiency comparison for movie scripts across different tokenizers*
+
 ### 2.4 Frequent Byte Combinations
 
 **Top 20 Tokens:**
@@ -158,6 +161,9 @@ Screenplay Elements:
 3. **Common English**: Standard stopwords (the, a, to, of, and)
 4. **Character-Specific**: `\tMORPHEUS` emerged as frequent token (Matrix script heavy)
 5. **Mixed Granularity**: Single chars, bigrams, trigrams, and longer sequences
+
+![Top Tokens Visualization](outputs/top_tokens.png)
+*Figure 2.2: Most frequent tokens across both domains*
 
 ### 2.5 Analysis and Discussion
 
@@ -378,6 +384,9 @@ Python Language Features Found:
 4. **Mixed Content**: Code + docstrings = natural language tokens
 5. **Structural**: `:\n` (block start) is single token
 
+![Pattern Distribution](outputs/pattern_distribution.png)
+*Figure 3.1: Token pattern distribution by category (whitespace, syntax, keywords)*
+
 ### 3.5 Analysis and Discussion
 
 #### Why BPE Is Not Ideal for Python
@@ -516,6 +525,9 @@ Improves type inference for code models
 | **Key Challenge** | Format preservation | Syntax understanding |
 | **Structure** | Scene-dialogue hierarchy | AST hierarchy |
 
+![Overall Efficiency Comparison](outputs/overall_efficiency.png)
+*Figure 4.1: Overall tokenization efficiency across both domains and all tokenizers*
+
 ### 4.2 Key Takeaways
 
 **1. Domain Structure Matters**
@@ -653,7 +665,7 @@ This demonstrates that **tokenization must respect domain structure** for optima
 
 ## Appendix: Reproduction Instructions
 
-All code, data, and trained tokenizers available in [/Users/abeen/Documents/Fall_Quarter/DLS_LAB2_REAL/](https://github.com/thenotsodarkknight/CMSC35200-assignment-2)
+All code, data, and trained tokenizers available in [Github](https://github.com/thenotsodarkknight/CMSC35200-assignment-2)
 
 **Data Collection:**
 ```bash

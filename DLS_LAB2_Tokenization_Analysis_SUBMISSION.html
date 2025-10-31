@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DLS LAB2 Tokenization Analysis - Submission</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .content {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; border-bottom: 2px solid #ecf0f1; padding-bottom: 8px; margin-top: 30px; }
+        h3 { color: #7f8c8d; }
+        code {
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        pre code {
+            background: none;
+            color: inherit;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background: #ecf0f1;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        em {
+            display: block;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+<h1 id="domain-specific-tokenization-analysis-movie-scripts-and-python-code">Domain-Specific Tokenization Analysis: Movie Scripts and Python Code</h1>
+
+<p><strong>Deep Learning Systems - Lab 2</strong><br />
+<strong>Date:</strong> October 30, 2025</p>
+
+<hr />
+
+<h2 id="summary">Summary</h2>
+
+<p>I analyzed Byte-Pair Encoding (BPE) tokenization performance across two text domains with distinct characteristics: <strong>Movie Scripts</strong> (structured screenplay format) and <strong>Python Code</strong> (programming language). I trained custom tokenizers using the nanochat framework and compared performance against three standard tokenizers (GPT-2, cl100k<em>base, o200k</em>base).</p>
+
+<p><strong>Results:</strong>
+- Movie Scripts: nanochat achieves 3.20 bytes/token, competitive with standards
+- Python Code: nanochat achieves 3.89 bytes/token, outperformed by cl100k (4.61)
+- Both domains reveal BPE limitations in capturing domain-specific structure</p>
+
+<hr />
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+<li><a href="#1-introduction">Introduction</a></li>
+<li><a href="#2-domain-1-movie-scripts">Domain 1: Movie Scripts</a></li>
+<li><a href="#3-domain-2-python-code">Domain 2: Python Code</a></li>
+<li><a href="#4-overall-comparison">Overall Comparison</a></li>
+<li><a href="#5-conclusions">Conclusions</a></li>
+</ol>
+
+<hr />
+
+<h2 id="1-introduction">1. Introduction</h2>
+
+<p>Tokenization converts raw text into discrete units for model consumption. While general-purpose tokenizers excel at natural language, specialized domains may benefit from or suffer under standard approaches.</p>
+
+<h3 id="methodology">Methodology</h3>
+
+<ul>
+<li><strong>Framework</strong>: nanochat (GPT-4 style BPE with HuggingFace backend)</li>
+<li><strong>Training</strong>: 4,096 vocabulary size for both domains</li>
+<li><strong>Baselines</strong>: GPT-2 (50K vocab), cl100k<em>base (100K), o200k</em>base (200K)</li>
+<li><strong>Metrics</strong>: Compression ratio (bytes/token), pattern analysis, vocabulary efficiency</li>
+</ul>
+
+<hr />
+
+<h2 id="2-domain-1-movie-scripts">2. Domain 1: Movie Scripts</h2>
+
+<h3 id="21-domain-characteristics">2.1 Domain Characteristics</h3>
+
+<p>Movie scripts follow the <strong>screenplay format</strong>, a highly structured notation for films:</p>
+
+<p><strong>Key Elements:</strong>
+- <strong>Scene Headings</strong>: INT./EXT. LOCATION - TIME
+- <strong>Action Lines</strong>: Narrative description (left-aligned)
+- <strong>Character Names</strong>: ALL CAPS, centered above dialogue
+- <strong>Dialogue</strong>: Character speech, indented
+- <strong>Parentheticals</strong>: (actor direction) within dialogue
+- <strong>Transitions</strong>: FADE IN, CUT TO, FADE OUT (right-aligned)</p>
+
+<p><strong>Structural Features:</strong>
+- Heavy use of whitespace (tabs, indentation)
+- ALL CAPS for character names and scene headings
+- Consistent formatting conventions
+- Mix of narrative prose and terse action</p>
+
+<h3 id="22-data-collection">2.2 Data Collection</h3>
+
+<p><strong>Source</strong>: Internet Movie Script Database (IMSDB) - publicly available scripts</p>
+
+<p><strong>Collection Method:</strong>
+-  Direct HTTP requests to IMSDB
+-  Extract from HTML <pre> tags
+-  Clean HTML entities
+-  Verify substantial content (&gt;5000 chars)</p>
+
+<p><strong>Scripts Collected</strong> (12 total):
+1. The Matrix (150K chars)
+2. Pulp Fiction (305K chars)
+3. The Shawshank Redemption (181K chars)
+4. The Godfather (204K chars)
+5. Forrest Gump (268K chars)
+6. Fight Club (262K chars)
+7. Inception (231K chars)
+8. Interstellar (351K chars)
+9. The Departed (342K chars)
+10. Se7en (296K chars)
+11. The Usual Suspects (229K chars)
+12. American Beauty (167K chars)</p>
+
+<p><strong>Statistics:</strong></p>
+
+<pre><code>Total size: 2.85 MB
+Total characters: 2,987,814
+Total lines: 89,645
+Average script length: 248,984 characters
+
+Screenplay Elements:
+- INT. scenes: 1,316
+- EXT. scenes: 686
+- FADE transitions: 97
+- CUT TO transitions: 134
+</code></pre>
+
+<h3 id="23-tokenization-results">2.3 Tokenization Results</h3>
+
+<h4 id="nanochat-custom-tokenizer">Nanochat Custom Tokenizer</h4>
+
+<p><strong>Training:</strong>
+- Vocabulary: 4,096 tokens
+- Training time: 0.31 seconds
+- Training chunks: 290 (10K chars each)</p>
+
+<p><strong>Performance:</strong>
+- Compression ratio: <strong>3.20 bytes/token</strong>
+- Test sample: 100,000 bytes
+- Tokens generated: 31,278
+- Encoding time: 0.028 seconds</p>
+
+<h4 id="comparison-with-standard-tokenizers">Comparison with Standard Tokenizers</h4>
+
+<table>
+<thead>
+<tr>
+  <th>Tokenizer</th>
+  <th>Vocab Size</th>
+  <th>Bytes/Token</th>
+  <th>Relative Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>nanochat</td>
+  <td>4,096</td>
+  <td><strong>3.20</strong></td>
+  <td>Baseline</td>
+</tr>
+<tr>
+  <td>GPT-2</td>
+  <td>50,257</td>
+  <td>2.78</td>
+  <td><strong>15% better</strong></td>
+</tr>
+<tr>
+  <td>cl100k_base</td>
+  <td>100,277</td>
+  <td>3.45</td>
+  <td>7% worse</td>
+</tr>
+<tr>
+  <td>o200k_base</td>
+  <td>200,019</td>
+  <td>3.46</td>
+  <td>8% worse</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Analysis</strong>: GPT-2 wins slightly due to optimized natural language vocabulary, but nanochat is competitive with larger modern tokenizers.</p>
+
+<p><img src="outputs/compression_comparison.png" alt="Movie Scripts Compression Comparison" />
+<em>Figure 2.1: Compression efficiency comparison for movie scripts across different tokenizers</em></p>
+
+<h3 id="24-frequent-byte-combinations">2.4 Frequent Byte Combinations</h3>
+
+<p><strong>Top 20 Tokens:</strong></p>
+
+<table>
+<thead>
+<tr>
+  <th>Rank</th>
+  <th>Token</th>
+  <th>Count</th>
+  <th>Percentage</th>
+  <th>Category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td><code>\n</code></td>
+  <td>1,465</td>
+  <td>4.68%</td>
+  <td>Structure</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>\t\t</code></td>
+  <td>1,191</td>
+  <td>3.81%</td>
+  <td>Indentation</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.\n\n</code></td>
+  <td>902</td>
+  <td>2.88%</td>
+  <td>Paragraph end</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>the</code></td>
+  <td>758</td>
+  <td>2.42%</td>
+  <td>Common word</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>,</code></td>
+  <td>713</td>
+  <td>2.28%</td>
+  <td>Punctuation</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code></code></td>
+  <td>669</td>
+  <td>2.14%</td>
+  <td>Whitespace</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>\t\t\t\t</code></td>
+  <td>621</td>
+  <td>1.99%</td>
+  <td>Deep indent</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.</code></td>
+  <td>571</td>
+  <td>1.83%</td>
+  <td>Period</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>a</code></td>
+  <td>398</td>
+  <td>1.27%</td>
+  <td>Article</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>to</code></td>
+  <td>291</td>
+  <td>0.93%</td>
+  <td>Preposition</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>of</code></td>
+  <td>270</td>
+  <td>0.86%</td>
+  <td>Preposition</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>is</code></td>
+  <td>263</td>
+  <td>0.84%</td>
+  <td>Verb</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>and</code></td>
+  <td>256</td>
+  <td>0.82%</td>
+  <td>Conjunction</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>you</code></td>
+  <td>218</td>
+  <td>0.70%</td>
+  <td>Pronoun</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>\t</code></td>
+  <td>215</td>
+  <td>0.69%</td>
+  <td>Tab</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>ing</code></td>
+  <td>186</td>
+  <td>0.59%</td>
+  <td>Suffix</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>his</code></td>
+  <td>170</td>
+  <td>0.54%</td>
+  <td>Possessive</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>\tMORPHEUS</code></td>
+  <td>159</td>
+  <td>0.51%</td>
+  <td>Character (Matrix)</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>s</code></td>
+  <td>154</td>
+  <td>0.49%</td>
+  <td>Letter/suffix</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>in</code></td>
+  <td>152</td>
+  <td>0.49%</td>
+  <td>Preposition</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Key Observations:</strong></p>
+
+<ol>
+<li><strong>Whitespace Dominance</strong>: 25%+ of top tokens are whitespace (tabs, newlines, spaces)</li>
+<li><strong>Structural Markers</strong>: Learned screenplay formatting (<code>.\n\n</code> for scene breaks)</li>
+<li><strong>Common English</strong>: Standard stopwords (the, a, to, of, and)</li>
+<li><strong>Character-Specific</strong>: <code>\tMORPHEUS</code> emerged as frequent token (Matrix script heavy)</li>
+<li><strong>Mixed Granularity</strong>: Single chars, bigrams, trigrams, and longer sequences</li>
+</ol>
+
+<p><img src="outputs/top_tokens.png" alt="Top Tokens Visualization" />
+<em>Figure 2.2: Most frequent tokens across both domains</em></p>
+
+<h3 id="25-analysis-and-discussion">2.5 Analysis and Discussion</h3>
+
+<h4 id="why-bpe-is-not-ideal-for-screenplays">Why BPE Is Not Ideal for Screenplays</h4>
+
+<p><strong>1. Format-Blind Tokenization</strong>
+- Cannot distinguish scene headings from dialogue
+- Treats "INT." and "EXT." as separate tokens, not structural markers
+- Misses the semantic meaning of formatting conventions</p>
+
+<p><strong>2. Character Name Fragmentation</strong>
+- Long character names split arbitrarily
+- Example: "DETECTIVE SMITH" → multiple tokens
+- Lost opportunity: character names are finite, could be vocabulary entries</p>
+
+<p><strong>3. Whitespace Inefficiency</strong>
+- Learns <code>\t\t</code>, <code>\t\t\t\t</code> as separate tokens
+- Wastes vocabulary on indentation levels
+- Could use single "indent" token + level parameter</p>
+
+<p><strong>4. Dialogue Structure Ignored</strong>
+- Parentheticals <code>(quietly)</code> treated as plain text
+- No understanding of character-dialogue pairing
+- Misses nested structure: CHARACTER → (direction) → speech</p>
+
+<h4 id="patterns-missed">Patterns Missed</h4>
+
+<p><strong>Screenplay-Specific:</strong>
+- Scene transitions (FADE, CUT, DISSOLVE)
+- Camera directions (CLOSE ON, ANGLE ON)
+- Sound cues (O.S., V.O.)
+- Shot descriptions (WIDE SHOT, INSERT)
+- Page breaks and act structure</p>
+
+<p><strong>Semantic Patterns:</strong>
+- Character emotional arcs (same character, different tones)
+- Recurring locations
+- Thematic dialogue patterns
+- Story structure markers</p>
+
+<h4 id="proposed-improvements">Proposed Improvements</h4>
+
+<p><strong>1. Structure-Aware Tokenization</strong></p>
+
+<pre><code>Parse screenplay first:
+- SCENE_HEADING: INT. COFFEE SHOP - DAY
+- ACTION: John enters, looks around
+- CHARACTER: JOHN
+- PARENTHETICAL: (nervously)
+- DIALOGUE: "Is anyone here?"
+
+Then tokenize within each element type
+</code></pre>
+
+<p><strong>2. Hierarchical Vocabulary</strong></p>
+
+<pre><code>Level 1: Screenplay structure (50 tokens)
+  - Scene headings, transitions, etc.
+Level 2: Character names (200 tokens)
+  - Frequent characters from training corpus
+Level 3: Common phrases (1000 tokens)
+  - Domain-specific: "walks away", "looks at"
+Level 4: BPE tokens (2846 tokens)
+  - Fill remaining vocabulary
+</code></pre>
+
+<p><strong>3. Whitespace Normalization</strong></p>
+
+<pre><code>Before tokenization:
+- Normalize all indentation to fixed levels
+- Represent as: [INDENT_0], [INDENT_1], [INDENT_2]
+- Saves vocabulary, improves consistency
+</code></pre>
+
+<p><strong>4. Context-Aware Merging</strong></p>
+
+<pre><code>Weight BPE merges by:
+- Screenplay corpus frequency
+- Cross-script consistency
+- Semantic groupings (e.g., keep "fade in" together)
+</code></pre>
+
+<hr />
+
+<h2 id="3-domain-2-python-code">3. Domain 2: Python Code</h2>
+
+<h3 id="31-domain-characteristics">3.1 Domain Characteristics</h3>
+
+<p>Python is a high-level programming language with distinctive syntax:</p>
+
+<p><strong>Key Features:</strong>
+- <strong>Indentation-based</strong>: Whitespace defines code blocks (4 spaces standard)
+- <strong>Dynamic typing</strong>: No type declarations
+- <strong>Rich standard library</strong>: Extensive built-in functions
+- <strong>Object-oriented</strong>: Classes, methods, inheritance
+- <strong>Functional elements</strong>: Lambda, map, filter, comprehensions</p>
+
+<p><strong>Syntax Elements:</strong>
+- Keywords: <code>def</code>, <code>class</code>, <code>if</code>, <code>for</code>, <code>try</code>, <code>import</code>, <code>async</code>
+- Operators: <code>=</code>, <code>==</code>, <code>+</code>, <code>-</code>, <code>and</code>, <code>or</code>, <code>in</code>
+- Delimiters: <code>:</code>, <code>,</code>, <code>()</code>, <code>[]</code>, <code>{}</code>
+- Comments: <code>#</code> single-line, <code>"""</code> docstrings
+- Type hints: <code>int</code>, <code>str</code>, <code>List[T]</code>, <code>Optional[X]</code></p>
+
+<h3 id="32-data-collection">3.2 Data Collection</h3>
+
+<p><strong>Source</strong>: Popular open-source Python projects via GitHub raw URLs</p>
+
+<p><strong>Collection Method:</strong></p>
+
+<div class="codehilite">
+<pre><span></span><code><span class="c1"># Direct HTTPS requests to raw.githubusercontent.com</span>
+<span class="c1"># No API authentication needed</span>
+<span class="c1"># UTF-8 decoding</span>
+<span class="c1"># Verify substantial content (&gt;500 chars)</span>
+</code></pre>
+</div>
+
+<p><strong>Files Collected</strong> (20 total):</p>
+
+<table>
+<thead>
+<tr>
+  <th>Project</th>
+  <th>File</th>
+  <th>Size (chars)</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Flask</td>
+  <td>app.py</td>
+  <td>60,738</td>
+  <td>Core application class</td>
+</tr>
+<tr>
+  <td>Flask</td>
+  <td>blueprints.py</td>
+  <td>4,541</td>
+  <td>Blueprint registry</td>
+</tr>
+<tr>
+  <td>Flask</td>
+  <td>cli.py</td>
+  <td>36,808</td>
+  <td>Command-line interface</td>
+</tr>
+<tr>
+  <td>Django</td>
+  <td>views.py</td>
+  <td>9,405</td>
+  <td>Generic views</td>
+</tr>
+<tr>
+  <td>Django</td>
+  <td>models.py</td>
+  <td>99,238</td>
+  <td>ORM base model</td>
+</tr>
+<tr>
+  <td>Django</td>
+  <td>forms.py</td>
+  <td>16,132</td>
+  <td>Form handling</td>
+</tr>
+<tr>
+  <td>Requests</td>
+  <td>api.py</td>
+  <td>6,449</td>
+  <td>HTTP API</td>
+</tr>
+<tr>
+  <td>Requests</td>
+  <td>models.py</td>
+  <td>35,510</td>
+  <td>Request/Response objects</td>
+</tr>
+<tr>
+  <td>Requests</td>
+  <td>sessions.py</td>
+  <td>30,503</td>
+  <td>Session management</td>
+</tr>
+<tr>
+  <td>NumPy</td>
+  <td>core.py</td>
+  <td>1,290</td>
+  <td>Core initialization</td>
+</tr>
+<tr>
+  <td>Pandas</td>
+  <td>core.py</td>
+  <td>496,552</td>
+  <td>DataFrame implementation</td>
+</tr>
+<tr>
+  <td>Pandas</td>
+  <td>series.py</td>
+  <td>256,977</td>
+  <td>Series implementation</td>
+</tr>
+<tr>
+  <td>scikit-learn</td>
+  <td>linear.py</td>
+  <td>28,997</td>
+  <td>Linear models</td>
+</tr>
+<tr>
+  <td>scikit-learn</td>
+  <td>tree.py</td>
+  <td>77,736</td>
+  <td>Decision trees</td>
+</tr>
+<tr>
+  <td>FastAPI</td>
+  <td>applications.py</td>
+  <td>180,300</td>
+  <td>FastAPI app class</td>
+</tr>
+<tr>
+  <td>FastAPI</td>
+  <td>routing.py</td>
+  <td>178,505</td>
+  <td>Routing system</td>
+</tr>
+<tr>
+  <td>pytest</td>
+  <td>main.py</td>
+  <td>42,468</td>
+  <td>Test runner</td>
+</tr>
+<tr>
+  <td>pytest</td>
+  <td>fixtures.py</td>
+  <td>78,681</td>
+  <td>Fixture management</td>
+</tr>
+<tr>
+  <td>Black</td>
+  <td>linegen.py</td>
+  <td>75,502</td>
+  <td>Line generation</td>
+</tr>
+<tr>
+  <td>Black</td>
+  <td>mode.py</td>
+  <td>10,763</td>
+  <td>Formatting modes</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Statistics:</strong></p>
+
+<pre><code>Total size: 1.65 MB
+Total characters: 1,731,426
+Total lines: 48,339
+Average file length: 86,571 characters
+
+Python Language Features Found:
+- def (functions): 1,148
+- class definitions: 239
+- import statements: 706
+- if statements: 2,536
+- for loops: 1,879
+- try blocks: 112
+- async definitions: 40
+- lambda expressions: 28
+</code></pre>
+
+<h3 id="33-tokenization-results">3.3 Tokenization Results</h3>
+
+<h4 id="nanochat-custom-tokenizer-2">Nanochat Custom Tokenizer</h4>
+
+<p><strong>Training:</strong>
+- Vocabulary: 4,096 tokens
+- Training time: 0.21 seconds
+- Training chunks: 174 (10K chars each)</p>
+
+<p><strong>Performance:</strong>
+- Compression ratio: <strong>3.89 bytes/token</strong>
+- Test sample: 100,000 bytes
+- Tokens generated: 25,690
+- Encoding time: 0.024 seconds</p>
+
+<h4 id="comparison-with-standard-tokenizers-2">Comparison with Standard Tokenizers</h4>
+
+<table>
+<thead>
+<tr>
+  <th>Tokenizer</th>
+  <th>Vocab Size</th>
+  <th>Bytes/Token</th>
+  <th>Relative Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>nanochat</td>
+  <td>4,096</td>
+  <td><strong>3.89</strong></td>
+  <td>Baseline</td>
+</tr>
+<tr>
+  <td>GPT-2</td>
+  <td>50,257</td>
+  <td>2.43</td>
+  <td><strong>60% better</strong></td>
+</tr>
+<tr>
+  <td>cl100k_base</td>
+  <td>100,277</td>
+  <td>4.61</td>
+  <td>16% worse</td>
+</tr>
+<tr>
+  <td>o200k_base</td>
+  <td>200,019</td>
+  <td>4.59</td>
+  <td>15% worse</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Analysis</strong>: Surprising result! Nanochat middle-ground. GPT-2 excels (natural language bias helps), while modern tokenizers (cl100k, o200k) slightly worse due to optimization for different domains.</p>
+
+<h3 id="34-frequent-byte-combinations">3.4 Frequent Byte Combinations</h3>
+
+<p><strong>Top 20 Tokens:</strong></p>
+
+<table>
+<thead>
+<tr>
+  <th>Rank</th>
+  <th>Token</th>
+  <th>Count</th>
+  <th>Percentage</th>
+  <th>Category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td><code></code> (7 spaces)</td>
+  <td>912</td>
+  <td>3.55%</td>
+  <td>Indentation</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>\n</code></td>
+  <td>594</td>
+  <td>2.31%</td>
+  <td>Newline</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>,</code></td>
+  <td>421</td>
+  <td>1.64%</td>
+  <td>Comma</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>the</code></td>
+  <td>416</td>
+  <td>1.62%</td>
+  <td>Docstring word</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.</code></td>
+  <td>410</td>
+  <td>1.60%</td>
+  <td>Period/accessor</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code></code> (11 spaces)</td>
+  <td>410</td>
+  <td>1.60%</td>
+  <td>Deep indent</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code></code> (3 spaces)</td>
+  <td>403</td>
+  <td>1.57%</td>
+  <td>Light indent</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>:</code></td>
+  <td>298</td>
+  <td>1.16%</td>
+  <td>Colon</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>=</code></td>
+  <td>265</td>
+  <td>1.03%</td>
+  <td>Assignment</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>is</code></td>
+  <td>235</td>
+  <td>0.91%</td>
+  <td>Identity test</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>s</code></td>
+  <td>233</td>
+  <td>0.91%</td>
+  <td>Letter</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>:\n</code></td>
+  <td>233</td>
+  <td>0.91%</td>
+  <td>Block start</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>to</code></td>
+  <td>222</td>
+  <td>0.86%</td>
+  <td>Preposition</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>None</code></td>
+  <td>209</td>
+  <td>0.81%</td>
+  <td>Null value</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>:</code></td>
+  <td>202</td>
+  <td>0.79%</td>
+  <td>Type hint</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>if</code></td>
+  <td>186</td>
+  <td>0.72%</td>
+  <td>Conditional</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>,\n</code></td>
+  <td>182</td>
+  <td>0.71%</td>
+  <td>Line continuation</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code></code></td>
+  <td>180</td>
+  <td>0.70%</td>
+  <td>Single space</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>#</code></td>
+  <td>172</td>
+  <td>0.67%</td>
+  <td>Comment start</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>a</code></td>
+  <td>169</td>
+  <td>0.66%</td>
+  <td>Article</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Key Observations:</strong></p>
+
+<ol>
+<li><strong>Indentation Dominance</strong>: 20%+ of top tokens are spaces (3, 7, 11 spaces)</li>
+<li><strong>Syntax Markers</strong>: <code>:</code>, <code>,</code>, <code>.</code>, <code>=</code>, <code>#</code> all in top 20</li>
+<li><strong>Keywords</strong>: <code>if</code>, <code>None</code>, <code>is</code> captured</li>
+<li><strong>Mixed Content</strong>: Code + docstrings = natural language tokens</li>
+<li><strong>Structural</strong>: <code>:\n</code> (block start) is single token</li>
+</ol>
+
+<p><img src="outputs/pattern_distribution.png" alt="Pattern Distribution" />
+<em>Figure 3.1: Token pattern distribution by category (whitespace, syntax, keywords)</em></p>
+
+<h3 id="35-analysis-and-discussion">3.5 Analysis and Discussion</h3>
+
+<h4 id="why-bpe-is-not-ideal-for-python">Why BPE Is Not Ideal for Python</h4>
+
+<p><strong>1. Indentation Hell</strong>
+- Learns 3-space, 7-space, 11-space as separate tokens
+- PEP 8 standard: 4 spaces per indent level
+- Should tokenize as: [INDENT] * level
+- Wastes vocabulary on whitespace variants</p>
+
+<p><strong>2. Syntax Ignorance</strong>
+- Treats <code>def function():</code> as random character sequence
+- Doesn't understand Python grammar
+- Example: <code>def</code> + <code></code> + <code>function</code> + <code>(</code> + <code>)</code> + <code>:</code>
+- Could be: [DEF] + [IDENTIFIER] + [LPAREN] + [RPAREN] + [COLON]</p>
+
+<p><strong>3. Identifier Fragmentation</strong>
+- Long variable names split: <code>calculate_total_price</code> → multiple tokens
+- Function names arbitrary: no understanding of naming conventions
+- snake_case, camelCase, PascalCase treated identically</p>
+
+<p><strong>4. Docstring vs Code Confusion</strong>
+- Same tokens for prose (docstrings) and code
+- Example: <code>"the"</code> appears in both
+- Loses context: is this a string or parameter name?</p>
+
+<p><strong>5. Type Hints Missed</strong>
+- Modern Python: <code>def func(x: int) -&gt; str:</code>
+- BPE treats <code>:</code>, <code>int</code>, <code>-&gt;</code>, <code>str</code> as disconnected
+- Could recognize type annotation pattern</p>
+
+<h4 id="patterns-missed-2">Patterns Missed</h4>
+
+<p><strong>Python-Specific:</strong>
+- Import patterns (<code>from X import Y</code>)
+- Decorators (<code>@staticmethod</code>, <code>@property</code>)
+- Context managers (<code>with open() as f:</code>)
+- List comprehensions (<code>[x for x in y if z]</code>)
+- F-strings (<code>f"Hello {name}"</code>)
+- Dunder methods (<code>__init__</code>, <code>__str__</code>)</p>
+
+<p><strong>Code Structure:</strong>
+- Function signatures
+- Class hierarchies
+- Exception hierarchies
+- Module organization</p>
+
+<p><strong>Semantic Patterns:</strong>
+- API design patterns (factory, singleton)
+- Error handling idioms
+- Common library usage patterns</p>
+
+<h4 id="proposed-improvements-2">Proposed Improvements</h4>
+
+<p><strong>1. Syntax-Aware Tokenization</strong></p>
+
+<pre><code>Use Python AST (Abstract Syntax Tree):
+import ast
+
+code = "def greet(name: str) -&gt; str:\n    return f'Hello {name}'"
+tree = ast.parse(code)
+
+Tokenize at AST level:
+- FunctionDef node
+  - name: "greet"
+  - args: [arg(name="name", annotation="str")]
+  - returns: "str"
+  - body: Return node
+    ...
+</code></pre>
+
+<p><strong>2. Indentation Normalization</strong></p>
+
+<pre><code>Before tokenization:
+Replace leading whitespace with [INDENT_N]
+
+Original:
+    def foo():
+        return 42
+
+Normalized:
+[INDENT_1]def foo():
+[INDENT_2]return 42
+
+Saves ~500 tokens just for indentation variants!
+</code></pre>
+
+<p><strong>3. Identifier-Aware Vocabulary</strong></p>
+
+<pre><code>Byte-level for identifiers:
+- calculate_total_price → calc_ulate_total_price
+- BPE within identifiers only
+- Preserve full identifier in vocabulary if frequent
+
+Result: Better generalization to new variable names
+</code></pre>
+
+<p><strong>4. Dual-Mode Tokenization</strong></p>
+
+<pre><code>Mode 1: Code (Python grammar)
+- Keywords: fixed vocabulary
+- Operators: fixed vocabulary
+- Identifiers: sub-word BPE
+
+Mode 2: Strings/Comments (natural language)
+- Standard BPE
+- Language-specific vocabulary
+
+Switch modes based on context
+</code></pre>
+
+<p><strong>5. Type-Hint Specific Tokens</strong></p>
+
+<pre><code>Recognize patterns:
+- `: int` → [TYPE_HINT_INT]
+- `-&gt; str` → [RETURN_TYPE_STR]
+- `Optional[X]` → [OPTIONAL] + [X]
+
+Improves type inference for code models
+</code></pre>
+
+<hr />
+
+<h2 id="4-overall-comparison-and-insights">4. Overall Comparison and Insights</h2>
+
+<h3 id="41-side-by-side-comparison">4.1 Side-by-Side Comparison</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Aspect</th>
+  <th>Movie Scripts</th>
+  <th>Python Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Domain Type</strong></td>
+  <td>Natural language + structure</td>
+  <td>Programming language</td>
+</tr>
+<tr>
+  <td><strong>Vocabulary Size</strong></td>
+  <td>4,096</td>
+  <td>4,096</td>
+</tr>
+<tr>
+  <td><strong>Data Size</strong></td>
+  <td>2.85 MB (12 scripts)</td>
+  <td>1.65 MB (20 files)</td>
+</tr>
+<tr>
+  <td><strong>Compression (nanochat)</strong></td>
+  <td>3.20 bytes/token</td>
+  <td>3.89 bytes/token</td>
+</tr>
+<tr>
+  <td><strong>Best Competitor</strong></td>
+  <td>GPT-2 (2.78)</td>
+  <td>cl100k (4.61)</td>
+</tr>
+<tr>
+  <td><strong>Whitespace %</strong></td>
+  <td>~25% of top tokens</td>
+  <td>~20% of top tokens</td>
+</tr>
+<tr>
+  <td><strong>Key Challenge</strong></td>
+  <td>Format preservation</td>
+  <td>Syntax understanding</td>
+</tr>
+<tr>
+  <td><strong>Structure</strong></td>
+  <td>Scene-dialogue hierarchy</td>
+  <td>AST hierarchy</td>
+</tr>
+</tbody>
+</table>
+
+<p><img src="outputs/overall_efficiency.png" alt="Overall Efficiency Comparison" />
+<em>Figure 4.1: Overall tokenization efficiency across both domains and all tokenizers</em></p>
+
+<h3 id="42-key-takeaways">4.2 Key Takeaways</h3>
+
+<p><strong>1. Domain Structure Matters</strong>
+- Both domains have rich internal structure (screenplay format, Python AST)
+- BPE ignores structure, operates on character sequences
+- Missed opportunity: leverage known grammars</p>
+
+<p><strong>2. Whitespace is a Problem</strong>
+- Both domains waste 20-25% of top tokens on whitespace
+- Simple solution: normalize before tokenization
+- Potential gain: 500-1000 tokens freed for meaningful content</p>
+
+<p><strong>3. Size of General Tokenizers Helps and Hurts</strong>
+- GPT-2 (50K): Good at natural language components
+- cl100k/o200k (100K+): Optimized for chat/web text, not code
+- Domain-specific (4K): Competitive despite small vocabulary</p>
+
+<p><strong>4. Mixed Content Challenges</strong>
+- Screenplays: action (prose) + dialogue (conversation) + format (structure)
+- Python: code (syntax) + docstrings (prose) + comments (notes)
+- Single tokenizer tries to handle all → suboptimal for each</p>
+
+<h3 id="43-universal-limitations-of-bpe">4.3 Universal Limitations of BPE</h3>
+
+<p><strong>1. Grammar-Blind</strong>
+- Cannot parse structure
+- Misses nested patterns
+- Treats syntax as arbitrary characters</p>
+
+<p><strong>2. Frequency-Biased</strong>
+- Learns common, not important
+- Rare but critical patterns ignored
+- Example: error handling (rare but crucial)</p>
+
+<p><strong>3. Context-Free</strong>
+- Same token everywhere
+- "def" in code vs "def" in comment treated equally
+- No semantic understanding</p>
+
+<p><strong>4. Fixed Vocabulary</strong>
+- Learned once, frozen
+- Cannot adapt to new idioms
+- New frameworks/libraries = OOV tokens</p>
+
+<p><strong>5. Byte-Level Fallback</strong>
+- Handles unknowns, but inefficient
+- Long identifiers → many byte tokens
+- Hurts compression and model efficiency</p>
+
+<h3 id="44-cross-domain-lessons">4.4 Cross-Domain Lessons</h3>
+
+<p><strong>What Worked:</strong>
+- BPE found domain-frequent patterns automatically
+- Competitive compression despite small vocabulary
+- Fast training (&lt; 1 second for each domain)
+- Handles both prose and structure reasonably</p>
+
+<p><strong>What Failed:</strong>
+- Indentation waste across both domains
+- Structure ignorance (format/syntax)
+- No semantic understanding
+- Frequent != important</p>
+
+<p><strong>General Recommendations:</strong>
+1. <strong>Use domain knowledge</strong>: Don't treat specialized text as generic
+2. <strong>Normalize first</strong>: Whitespace, formatting, etc.
+3. <strong>Hierarchical approach</strong>: Structure → Content → Tokens
+4. <strong>Multi-mode</strong>: Different strategies for different content types
+5. <strong>Evaluate on tasks</strong>: Compression alone insufficient metric</p>
+
+<hr />
+
+<h2 id="5-conclusions">5. Conclusions</h2>
+
+<p>This demonstrates that <strong>tokenization must respect domain structure</strong> for optimal performance.</p>
+
+<h3 id="movie-scripts">Movie Scripts</h3>
+
+<ul>
+<li>Competitive compression (3.20 bytes/token)</li>
+<li>Learned screenplay conventions (tabs, scene breaks)</li>
+<li>Ignored format semantics (INT/EXT, character names)</li>
+<li><strong>Best approach</strong>: Parse screenplay format first, tokenize within elements</li>
+</ul>
+
+<h3 id="python-code">Python Code</h3>
+
+<ul>
+<li>Reasonable compression (3.89 bytes/token)</li>
+<li>Captured syntax elements (<code>:</code>, <code>=</code>, <code>if</code>, <code>None</code>)</li>
+<li>Wasted vocabulary on indentation variants</li>
+<li>Missed AST structure</li>
+<li><strong>Best approach</strong>: Syntax-aware tokenization using Python parser</li>
+</ul>
+
+<h3 id="universal-insights">Universal Insights</h3>
+
+<p><strong>The Tokenization Hierarchy:</strong>
+1. <strong>Understand domain structure</strong> (grammar, format, conventions)
+2. <strong>Normalize formatting</strong> (indentation, whitespace)
+3. <strong>Apply structure-preserving tokenization</strong> (hierarchy-aware)
+4. <strong>Use BPE within structured elements</strong> (not globally)</p>
+
+<p><strong>Key Findings:</strong>
+- General tokenizers competitive but not optimal
+- 20-25% vocabulary wasted on whitespace variants
+- Structure-awareness &gt; pure frequency-based learning
+- Domain knowledge integration is critical</p>
+
+<h3 id="future-directions">Future Directions</h3>
+
+<p><strong>Immediate Next Steps:</strong>
+1. Implement hierarchical screenplay tokenizer
+2. Test AST-based Python tokenization
+3. Evaluate on downstream tasks (generation, completion)
+4. Compare with tree-based representations</p>
+
+<p><strong>Research Directions:</strong>
+1. Grammar-guided BPE algorithms
+2. Multi-modal tokenization (structure + content)
+3. Adaptive vocabularies (task-specific)
+4. Semantic token embeddings</p>
+
+<p><strong>Broader Impact:</strong>
+- Better code models (GitHub Copilot, etc.)
+- Improved screenplay generation
+- Domain-specific language models
+- More efficient token budgets</p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<ol>
+<li>Sennrich, R., Haddow, B., &amp; Birch, A. (2016). "Neural Machine Translation of Rare Words with Subword Units."</li>
+<li>Karpathy, A. (2024). "nanochat: A small GPT training framework." GitHub.</li>
+<li>Internet Movie Script Database (IMSDB). https://imsdb.com/</li>
+<li>Python Software Foundation. "Python Language Reference."</li>
+<li>OpenAI. "tiktoken: BPE tokenizer for OpenAI models."</li>
+</ol>
+
+<hr />
+
+<h2 id="appendix-reproduction-instructions">Appendix: Reproduction Instructions</h2>
+
+<p>All code, data, and trained tokenizers available in <a href="https://github.com/thenotsodarkknight/CMSC35200-assignment-2">/Users/abeen/Documents/Fall<em>Quarter/DLS</em>LAB2_REAL/</a></p>
+
+<p><strong>Data Collection:</strong></p>
+
+<div class="codehilite">
+<pre><span></span><code>python3<span class="w"> </span>collect_movie_scripts.py<span class="w">  </span><span class="c1"># Fetches from IMSDB</span>
+python3<span class="w"> </span>collect_python_code.py<span class="w">    </span><span class="c1"># Fetches from GitHub</span>
+</code></pre>
+</div>
+
+<p><strong>Training &amp; Analysis:</strong></p>
+
+<div class="codehilite">
+<pre><span></span><code>python3<span class="w"> </span>train_and_analyze_tokenizers.py
+</code></pre>
+</div>
+
+<p><strong>Visualizations:</strong></p>
+
+<div class="codehilite">
+<pre><span></span><code>python3<span class="w"> </span>create_visualizations.py
+</code></pre>
+</div>
+
+<p><strong>Results:</strong>
+- <code>outputs/tokenizer_analysis_results.json</code> - Complete numerical data
+- <code>outputs/*.png</code> - 4 visualization figures
+- <code>outputs/*_tokenizer/</code> - Trained models</p>
+
+<hr />
+
+<p><strong>End of Report</strong></p>
+
+    </div>
+</body>
+</html>
