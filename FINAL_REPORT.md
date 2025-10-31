@@ -653,7 +653,7 @@ This demonstrates that **tokenization must respect domain structure** for optima
 
 ## Appendix: Reproduction Instructions
 
-All code, data, and trained tokenizers available in `/Users/abeen/Documents/Fall_Quarter/DLS_LAB2_REAL/`
+All code, data, and trained tokenizers available in [/Users/abeen/Documents/Fall_Quarter/DLS_LAB2_REAL/](https://github.com/thenotsodarkknight/CMSC35200-assignment-2)
 
 **Data Collection:**
 ```bash
