@@ -144,24 +144,6 @@ python3 create_visualizations.py
 
 ---
 
-
-1. First quantitative comparison of screenplay tokenization
-2. Demonstrated: Modern tokenizers (cl100k, o200k) worse on Python than 4K domain-specific
-3. Identified: 20-25% vocabulary waste on whitespace across domains
-4. Proposed: Concrete structure-aware improvements for both domains
-
----
-
-- 4.5 MB real data collected
-- 12 movie scripts (all real from IMSDB)
-- 20 Python files (production code from major projects)
-- 2 trained tokenizers (4K vocab each)
-- 3 baseline comparisons (GPT-2, cl100k, o200k)
-- 4 professional visualizations  
-- Complete comprehensive report
-
----
-
 ## Main Deliverable
 
 `FINAL_REPORT.md` - Complete analysis with all findings
