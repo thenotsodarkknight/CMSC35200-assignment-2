@@ -598,20 +598,20 @@ Improves type inference for code models
 
 ## 5. Conclusions
 
-This study demonstrates that **tokenization must respect domain structure** for optimal performance.
+This demonstrates that **tokenization must respect domain structure** for optimal performance.
 
 ### Movie Scripts
-- ✅ Competitive compression (3.20 bytes/token)
-- ✅ Learned screenplay conventions (tabs, scene breaks)
-- ❌ Ignored format semantics (INT/EXT, character names)
-- 💡 **Best approach**: Parse screenplay format first, tokenize within elements
+-  Competitive compression (3.20 bytes/token)
+-  Learned screenplay conventions (tabs, scene breaks)
+-  Ignored format semantics (INT/EXT, character names)
+-  **Best approach**: Parse screenplay format first, tokenize within elements
 
 ### Python Code  
-- ✅ Reasonable compression (3.89 bytes/token)
-- ✅ Captured syntax elements (`:`, `=`, `if`, `None`)
-- ❌ Wasted vocabulary on indentation variants
-- ❌ Missed AST structure
-- 💡 **Best approach**: Syntax-aware tokenization using Python parser
+-  Reasonable compression (3.89 bytes/token)
+-  Captured syntax elements (`:`, `=`, `if`, `None`)
+-  Wasted vocabulary on indentation variants
+-  Missed AST structure
+-  **Best approach**: Syntax-aware tokenization using Python parser
 
 ### Universal Insights
 
