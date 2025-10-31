@@ -1,0 +1,18 @@
+Rust Code Corpus Statistics
+==================================================
+
+Number of files: 2
+Total characters: 640
+Total lines: 23
+Total size: 0.00 MB
+Average chars per file: 320
+
+Rust Language Features Found:
+  fn (functions): 1
+  impl blocks: 0
+  struct definitions: 1
+  enum definitions: 0
+  match expressions: 0
+  .unwrap() calls: 0
+
+Data source: GitHub API (rust-lang, tokio, serde, actix, cargo)

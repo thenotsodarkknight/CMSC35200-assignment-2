@@ -1,0 +1,16 @@
+Movie Scripts Corpus Statistics
+==================================================
+
+Number of scripts: 12
+Total characters: 2,987,814
+Total lines: 89,645
+Total size: 2.85 MB
+Avg chars per script: 248,984
+
+Screenplay Elements:
+  INT. scenes: 1316
+  EXT. scenes: 686
+  FADE transitions: 97
+  CUT TO transitions: 134
+
+Source: Internet Movie Script Database (IMSDB)

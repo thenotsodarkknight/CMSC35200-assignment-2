@@ -1,0 +1,23 @@
+
+================================================================================
+// SOURCE: Rust By Example - attribute.md (block 1)
+================================================================================
+
+  #[derive(Debug)]
+  struct Rectangle {
+      width: u32,
+      height: u32,
+  }
+  
+
+
+================================================================================
+// SOURCE: Rust By Example - attribute.md (block 2)
+================================================================================
+
+  #![allow(unused_variables)]
+
+  fn main() {
+      let x = 3; // This would normally warn about an unused variable.
+  }
+  

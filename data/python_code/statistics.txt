@@ -1,0 +1,20 @@
+Python Code Corpus Statistics
+==================================================
+
+Number of files: 20
+Total characters: 1,731,426
+Total lines: 48,339
+Total size: 1.65 MB
+Avg chars per file: 86,571
+
+Python Language Features:
+  def (functions): 1,148
+  class definitions: 239
+  import statements: 706
+  if statements: 2,536
+  for loops: 1,879
+  try blocks: 112
+  async definitions: 40
+  lambda expressions: 28
+
+Source: Open-source Python projects (Flask, Django, NumPy, Pandas, etc.)

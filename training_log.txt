@@ -1,0 +1,170 @@
+
+
+
+
+
+
+
+================================================================================
+DOMAIN 1: MOVIE SCRIPTS
+================================================================================
+
+============================================================
+Training tokenizer for movie_scripts
+============================================================
+Data size: 2,898,252 characters (2.76 MB)
+Training on 290 chunks...
+Training completed in 0.31 seconds
+Saved tokenizer to /Users/abeen/Documents/Fall_Quarter/DLS_LAB2_REAL/outputs/movie_scripts_tokenizer/tokenizer.json
+Saved to: /Users/abeen/Documents/Fall_Quarter/DLS_LAB2_REAL/outputs/movie_scripts_tokenizer
+
+Analyzing Movie Scripts (nanochat)...
+  Original bytes: 100,000
+  Number of tokens: 31,278
+  Compression ratio: 3.20 bytes/token
+  Encoding time: 0.0281 seconds
+  Vocabulary size: 4,096
+
+============================================================
+Token Pattern Analysis for Movie Scripts
+============================================================
+
+Top 20 most frequent tokens:
+
+   1. '\n'                                     | Count:    1,465 ( 4.68%) | ID: 207
+   2. '\t\t'                                   | Count:    1,191 ( 3.81%) | ID: 297
+   3. '.\n\n'                                  | Count:      902 ( 2.88%) | ID: 279
+   4. ' the'                                   | Count:      758 ( 2.42%) | ID: 274
+   5. ','                                      | Count:      713 ( 2.28%) | ID: 20
+   6. ' '                                      | Count:      669 ( 2.14%) | ID: 229
+   7. '\t\t\t\t'                               | Count:      621 ( 1.99%) | ID: 538
+   8. '.'                                      | Count:      571 ( 1.83%) | ID: 22
+   9. ' a'                                     | Count:      398 ( 1.27%) | ID: 271
+  10. ' to'                                    | Count:      291 ( 0.93%) | ID: 298
+  11. ' of'                                    | Count:      270 ( 0.86%) | ID: 319
+  12. ' is'                                    | Count:      263 ( 0.84%) | ID: 348
+  13. ' and'                                   | Count:      256 ( 0.82%) | ID: 320
+  14. ' you'                                   | Count:      218 ( 0.70%) | ID: 322
+  15. '\t'                                     | Count:      215 ( 0.69%) | ID: 206
+  16. 'ing'                                    | Count:      186 ( 0.59%) | ID: 287
+  17. ' his'                                   | Count:      170 ( 0.54%) | ID: 356
+  18. '\tMORPHEUS'                             | Count:      159 ( 0.51%) | ID: 1293
+  19. 's'                                      | Count:      154 ( 0.49%) | ID: 91
+  20. ' in'                                    | Count:      152 ( 0.49%) | ID: 312
+
+Pattern categories:
+  Single characters: 3
+  Whitespace tokens: 3
+  Multi-character tokens: 44
+
+Top 10 multi-character combinations:
+    '\t\t': 1,191 occurrences
+    '.\n\n': 902 occurrences
+    ' the': 758 occurrences
+    '\t\t\t\t': 621 occurrences
+    ' a': 398 occurrences
+    ' to': 291 occurrences
+    ' of': 270 occurrences
+    ' is': 263 occurrences
+    ' and': 256 occurrences
+    ' you': 218 occurrences
+
+============================================================
+Comparing with standard tokenizers for Movie Scripts
+============================================================
+✓ GPT-2: 35,927 tokens, ratio: 2.78
+✓ cl100k_base: 29,017 tokens, ratio: 3.45
+✓ o200k_base: 28,874 tokens, ratio: 3.46
+
+================================================================================
+DOMAIN 2: PYTHON CODE
+================================================================================
+
+============================================================
+Training tokenizer for python_code
+============================================================
+Data size: 1,731,426 characters (1.65 MB)
+Training on 174 chunks...
+Training completed in 0.21 seconds
+Saved tokenizer to /Users/abeen/Documents/Fall_Quarter/DLS_LAB2_REAL/outputs/python_code_tokenizer/tokenizer.json
+Saved to: /Users/abeen/Documents/Fall_Quarter/DLS_LAB2_REAL/outputs/python_code_tokenizer
+
+Analyzing Python Code (nanochat)...
+  Original bytes: 100,000
+  Number of tokens: 25,690
+  Compression ratio: 3.89 bytes/token
+  Encoding time: 0.0235 seconds
+  Vocabulary size: 4,096
+
+============================================================
+Token Pattern Analysis for Python Code
+============================================================
+
+Top 20 most frequent tokens:
+
+   1. '       '                                | Count:      912 ( 3.55%) | ID: 268
+   2. '\n'                                     | Count:      594 ( 2.31%) | ID: 207
+   3. ','                                      | Count:      421 ( 1.64%) | ID: 20
+   4. ' the'                                   | Count:      416 ( 1.62%) | ID: 293
+   5. '.'                                      | Count:      410 ( 1.60%) | ID: 22
+   6. '           '                            | Count:      410 ( 1.60%) | ID: 269
+   7. '   '                                    | Count:      403 ( 1.57%) | ID: 267
+   8. ':'                                      | Count:      298 ( 1.16%) | ID: 34
+   9. ' ='                                     | Count:      265 ( 1.03%) | ID: 292
+  10. ' is'                                    | Count:      235 ( 0.91%) | ID: 341
+  11. 's'                                      | Count:      233 ( 0.91%) | ID: 91
+  12. ':\n'                                    | Count:      233 ( 0.91%) | ID: 309
+  13. ' to'                                    | Count:      222 ( 0.86%) | ID: 335
+  14. ' None'                                  | Count:      209 ( 0.81%) | ID: 360
+  15. ' :'                                     | Count:      202 ( 0.79%) | ID: 382
+  16. ' if'                                    | Count:      186 ( 0.72%) | ID: 351
+  17. ',\n'                                    | Count:      182 ( 0.71%) | ID: 285
+  18. ' '                                      | Count:      180 ( 0.70%) | ID: 229
+  19. ' #'                                     | Count:      172 ( 0.67%) | ID: 361
+  20. ' a'                                     | Count:      169 ( 0.66%) | ID: 278
+
+Pattern categories:
+  Single characters: 9
+  Whitespace tokens: 2
+  Multi-character tokens: 39
+
+Top 10 multi-character combinations:
+    '       ': 912 occurrences
+    ' the': 416 occurrences
+    '           ': 410 occurrences
+    '   ': 403 occurrences
+    ' =': 265 occurrences
+    ' is': 235 occurrences
+    ':\n': 233 occurrences
+    ' to': 222 occurrences
+    ' None': 209 occurrences
+    ' :': 202 occurrences
+
+============================================================
+Comparing with standard tokenizers for Python Code
+============================================================
+✓ GPT-2: 41,155 tokens, ratio: 2.43
+✓ cl100k_base: 21,697 tokens, ratio: 4.61
+✓ o200k_base: 21,807 tokens, ratio: 4.59
+
+✓ Results saved to: /Users/abeen/Documents/Fall_Quarter/DLS_LAB2_REAL/outputs/tokenizer_analysis_results.json
+
+================================================================================
+COMPRESSION RATIO COMPARISON SUMMARY
+================================================================================
+
+Movie Scripts:
+  nanochat:       3.197 bytes/token
+  GPT-2 (tiktoken): 2.783 bytes/token
+  cl100k_base (GPT-3.5/4): 3.446 bytes/token
+  o200k_base (GPT-4o): 3.463 bytes/token
+
+Python Code:
+  nanochat:       3.893 bytes/token
+  GPT-2 (tiktoken): 2.430 bytes/token
+  cl100k_base (GPT-3.5/4): 4.609 bytes/token
+  o200k_base (GPT-4o): 4.586 bytes/token
+
+================================================================================
+Analysis complete!
+================================================================================

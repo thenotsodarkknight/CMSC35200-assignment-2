@@ -1,0 +1,658 @@
+{
+  "movie_scripts": {
+    "nanochat_result": {
+      "name": "Movie Scripts (nanochat)",
+      "original_bytes": 100000,
+      "num_tokens": 31278,
+      "compression_ratio": 3.1971353667114264,
+      "encode_time": 0.028081178665161133,
+      "vocab_size": 4096
+    },
+    "standard_results": [
+      {
+        "name": "GPT-2 (tiktoken)",
+        "original_bytes": 100000,
+        "num_tokens": 35927,
+        "compression_ratio": 2.7834219389317227,
+        "vocab_size": 50257
+      },
+      {
+        "name": "cl100k_base (GPT-3.5/4)",
+        "original_bytes": 100000,
+        "num_tokens": 29017,
+        "compression_ratio": 3.446255643243616,
+        "vocab_size": 100277
+      },
+      {
+        "name": "o200k_base (GPT-4o)",
+        "original_bytes": 100000,
+        "num_tokens": 28874,
+        "compression_ratio": 3.463323405139572,
+        "vocab_size": 200019
+      }
+    ],
+    "frequent_tokens": [
+      {
+        "token_id": 207,
+        "token": "\n",
+        "token_repr": "'\\n'",
+        "count": 1465,
+        "percentage": 4.683803312232239
+      },
+      {
+        "token_id": 297,
+        "token": "\t\t",
+        "token_repr": "'\\t\\t'",
+        "count": 1191,
+        "percentage": 3.807788221753309
+      },
+      {
+        "token_id": 279,
+        "token": ".\n\n",
+        "token_repr": "'.\\n\\n'",
+        "count": 902,
+        "percentage": 2.883816100773707
+      },
+      {
+        "token_id": 274,
+        "token": " the",
+        "token_repr": "' the'",
+        "count": 758,
+        "percentage": 2.4234286079672613
+      },
+      {
+        "token_id": 20,
+        "token": ",",
+        "token_repr": "','",
+        "count": 713,
+        "percentage": 2.279557516465247
+      },
+      {
+        "token_id": 229,
+        "token": " ",
+        "token_repr": "' '",
+        "count": 669,
+        "percentage": 2.1388835603299445
+      },
+      {
+        "token_id": 538,
+        "token": "\t\t\t\t",
+        "token_repr": "'\\t\\t\\t\\t'",
+        "count": 621,
+        "percentage": 1.985421062727796
+      },
+      {
+        "token_id": 22,
+        "token": ".",
+        "token_repr": "'.'",
+        "count": 571,
+        "percentage": 1.8255642943922246
+      },
+      {
+        "token_id": 271,
+        "token": " a",
+        "token_repr": "' a'",
+        "count": 398,
+        "percentage": 1.2724598759511478
+      },
+      {
+        "token_id": 298,
+        "token": " to",
+        "token_repr": "' to'",
+        "count": 291,
+        "percentage": 0.9303663917130253
+      },
+      {
+        "token_id": 319,
+        "token": " of",
+        "token_repr": "' of'",
+        "count": 270,
+        "percentage": 0.8632265490120852
+      },
+      {
+        "token_id": 348,
+        "token": " is",
+        "token_repr": "' is'",
+        "count": 263,
+        "percentage": 0.8408466014451051
+      },
+      {
+        "token_id": 320,
+        "token": " and",
+        "token_repr": "' and'",
+        "count": 256,
+        "percentage": 0.8184666538781252
+      },
+      {
+        "token_id": 322,
+        "token": " you",
+        "token_repr": "' you'",
+        "count": 218,
+        "percentage": 0.696975509943091
+      },
+      {
+        "token_id": 206,
+        "token": "\t",
+        "token_repr": "'\\t'",
+        "count": 215,
+        "percentage": 0.6873841038429567
+      },
+      {
+        "token_id": 287,
+        "token": "ing",
+        "token_repr": "'ing'",
+        "count": 186,
+        "percentage": 0.5946671782083254
+      },
+      {
+        "token_id": 356,
+        "token": " his",
+        "token_repr": "' his'",
+        "count": 170,
+        "percentage": 0.5435130123409425
+      },
+      {
+        "token_id": 1293,
+        "token": "\tMORPHEUS",
+        "token_repr": "'\\tMORPHEUS'",
+        "count": 159,
+        "percentage": 0.5083445233071168
+      },
+      {
+        "token_id": 91,
+        "token": "s",
+        "token_repr": "'s'",
+        "count": 154,
+        "percentage": 0.49235884647355965
+      },
+      {
+        "token_id": 312,
+        "token": " in",
+        "token_repr": "' in'",
+        "count": 152,
+        "percentage": 0.48596457574013685
+      },
+      {
+        "token_id": 333,
+        "token": "'s",
+        "token_repr": "\"'s\"",
+        "count": 151,
+        "percentage": 0.4827674403734254
+      },
+      {
+        "token_id": 273,
+        "token": "\n\n",
+        "token_repr": "'\\n\\n'",
+        "count": 149,
+        "percentage": 0.47637316964000254
+      },
+      {
+        "token_id": 422,
+        "token": " as",
+        "token_repr": "' as'",
+        "count": 147,
+        "percentage": 0.4699788989065797
+      },
+      {
+        "token_id": 410,
+        "token": "?\n\n",
+        "token_repr": "'?\\n\\n'",
+        "count": 145,
+        "percentage": 0.4635846281731569
+      },
+      {
+        "token_id": 359,
+        "token": " it",
+        "token_repr": "' it'",
+        "count": 142,
+        "percentage": 0.45399322207302256
+      },
+      {
+        "token_id": 1219,
+        "token": "\tNEO",
+        "token_repr": "'\\tNEO'",
+        "count": 139,
+        "percentage": 0.4444018159728883
+      },
+      {
+        "token_id": 1202,
+        "token": " Neo",
+        "token_repr": "' Neo'",
+        "count": 129,
+        "percentage": 0.41243046230577407
+      },
+      {
+        "token_id": 339,
+        "token": " (",
+        "token_repr": "' ('",
+        "count": 128,
+        "percentage": 0.4092333269390626
+      },
+      {
+        "token_id": 633,
+        "token": "\tThe",
+        "token_repr": "'\\tThe'",
+        "count": 118,
+        "percentage": 0.3772619732719483
+      },
+      {
+        "token_id": 314,
+        "token": "ed",
+        "token_repr": "'ed'",
+        "count": 118,
+        "percentage": 0.3772619732719483
+      }
+    ],
+    "patterns": {
+      "single_char": [
+        [
+          ",",
+          713
+        ],
+        [
+          ".",
+          571
+        ],
+        [
+          "s",
+          154
+        ]
+      ],
+      "whitespace": [
+        [
+          "\n",
+          1465
+        ],
+        [
+          " ",
+          669
+        ],
+        [
+          "\t",
+          215
+        ]
+      ],
+      "multi_char": [
+        [
+          "\t\t",
+          1191
+        ],
+        [
+          ".\n\n",
+          902
+        ],
+        [
+          " the",
+          758
+        ],
+        [
+          "\t\t\t\t",
+          621
+        ],
+        [
+          " a",
+          398
+        ],
+        [
+          " to",
+          291
+        ],
+        [
+          " of",
+          270
+        ],
+        [
+          " is",
+          263
+        ],
+        [
+          " and",
+          256
+        ],
+        [
+          " you",
+          218
+        ]
+      ],
+      "special": []
+    }
+  },
+  "python_code": {
+    "nanochat_result": {
+      "name": "Python Code (nanochat)",
+      "original_bytes": 100000,
+      "num_tokens": 25690,
+      "compression_ratio": 3.8925652004671076,
+      "encode_time": 0.02353692054748535,
+      "vocab_size": 4096
+    },
+    "standard_results": [
+      {
+        "name": "GPT-2 (tiktoken)",
+        "original_bytes": 100000,
+        "num_tokens": 41155,
+        "compression_ratio": 2.429838415745353,
+        "vocab_size": 50257
+      },
+      {
+        "name": "cl100k_base (GPT-3.5/4)",
+        "original_bytes": 100000,
+        "num_tokens": 21697,
+        "compression_ratio": 4.608932110430013,
+        "vocab_size": 100277
+      },
+      {
+        "name": "o200k_base (GPT-4o)",
+        "original_bytes": 100000,
+        "num_tokens": 21807,
+        "compression_ratio": 4.585683496125098,
+        "vocab_size": 200019
+      }
+    ],
+    "frequent_tokens": [
+      {
+        "token_id": 268,
+        "token": "       ",
+        "token_repr": "'       '",
+        "count": 912,
+        "percentage": 3.5500194628260027
+      },
+      {
+        "token_id": 207,
+        "token": "\n",
+        "token_repr": "'\\n'",
+        "count": 594,
+        "percentage": 2.312183729077462
+      },
+      {
+        "token_id": 20,
+        "token": ",",
+        "token_repr": "','",
+        "count": 421,
+        "percentage": 1.6387699493966523
+      },
+      {
+        "token_id": 293,
+        "token": " the",
+        "token_repr": "' the'",
+        "count": 416,
+        "percentage": 1.619307123394317
+      },
+      {
+        "token_id": 22,
+        "token": ".",
+        "token_repr": "'.'",
+        "count": 410,
+        "percentage": 1.5959517321915144
+      },
+      {
+        "token_id": 269,
+        "token": "           ",
+        "token_repr": "'           '",
+        "count": 410,
+        "percentage": 1.5959517321915144
+      },
+      {
+        "token_id": 267,
+        "token": "   ",
+        "token_repr": "'   '",
+        "count": 403,
+        "percentage": 1.5687037757882445
+      },
+      {
+        "token_id": 34,
+        "token": ":",
+        "token_repr": "':'",
+        "count": 298,
+        "percentage": 1.1599844297391981
+      },
+      {
+        "token_id": 292,
+        "token": " =",
+        "token_repr": "' ='",
+        "count": 265,
+        "percentage": 1.0315297781237835
+      },
+      {
+        "token_id": 341,
+        "token": " is",
+        "token_repr": "' is'",
+        "count": 235,
+        "percentage": 0.9147528221097703
+      },
+      {
+        "token_id": 91,
+        "token": "s",
+        "token_repr": "'s'",
+        "count": 233,
+        "percentage": 0.9069676917088361
+      },
+      {
+        "token_id": 309,
+        "token": ":\n",
+        "token_repr": "':\\n'",
+        "count": 233,
+        "percentage": 0.9069676917088361
+      },
+      {
+        "token_id": 335,
+        "token": " to",
+        "token_repr": "' to'",
+        "count": 222,
+        "percentage": 0.864149474503698
+      },
+      {
+        "token_id": 360,
+        "token": " None",
+        "token_repr": "' None'",
+        "count": 209,
+        "percentage": 0.8135461268976254
+      },
+      {
+        "token_id": 382,
+        "token": " :",
+        "token_repr": "' :'",
+        "count": 202,
+        "percentage": 0.7862981704943558
+      },
+      {
+        "token_id": 351,
+        "token": " if",
+        "token_repr": "' if'",
+        "count": 186,
+        "percentage": 0.7240171272868821
+      },
+      {
+        "token_id": 285,
+        "token": ",\n",
+        "token_repr": "',\\n'",
+        "count": 182,
+        "percentage": 0.7084468664850135
+      },
+      {
+        "token_id": 229,
+        "token": " ",
+        "token_repr": "' '",
+        "count": 180,
+        "percentage": 0.7006617360840794
+      },
+      {
+        "token_id": 361,
+        "token": " #",
+        "token_repr": "' #'",
+        "count": 172,
+        "percentage": 0.6695212144803425
+      },
+      {
+        "token_id": 278,
+        "token": " a",
+        "token_repr": "' a'",
+        "count": 169,
+        "percentage": 0.6578435188789412
+      },
+      {
+        "token_id": 346,
+        "token": " self",
+        "token_repr": "' self'",
+        "count": 159,
+        "percentage": 0.6189178668742701
+      },
+      {
+        "token_id": 284,
+        "token": "               ",
+        "token_repr": "'               '",
+        "count": 155,
+        "percentage": 0.6033476060724017
+      },
+      {
+        "token_id": 343,
+        "token": ".\n",
+        "token_repr": "'.\\n'",
+        "count": 138,
+        "percentage": 0.5371739976644608
+      },
+      {
+        "token_id": 298,
+        "token": " \"",
+        "token_repr": "' \"'",
+        "count": 132,
+        "percentage": 0.5138186064616582
+      },
+      {
+        "token_id": 71,
+        "token": "_",
+        "token_repr": "'_'",
+        "count": 129,
+        "percentage": 0.5021409108602569
+      },
+      {
+        "token_id": 16,
+        "token": "(",
+        "token_repr": "'('",
+        "count": 129,
+        "percentage": 0.5021409108602569
+      },
+      {
+        "token_id": 500,
+        "token": " ``",
+        "token_repr": "' ``'",
+        "count": 129,
+        "percentage": 0.5021409108602569
+      },
+      {
+        "token_id": 287,
+        "token": "\n\n",
+        "token_repr": "'\\n\\n'",
+        "count": 128,
+        "percentage": 0.49824834565978976
+      },
+      {
+        "token_id": 297,
+        "token": " in",
+        "token_repr": "' in'",
+        "count": 128,
+        "percentage": 0.49824834565978976
+      },
+      {
+        "token_id": 337,
+        "token": ".\n\n",
+        "token_repr": "'.\\n\\n'",
+        "count": 118,
+        "percentage": 0.4593226936551187
+      }
+    ],
+    "patterns": {
+      "single_char": [
+        [
+          ",",
+          421
+        ],
+        [
+          ".",
+          410
+        ],
+        [
+          ":",
+          298
+        ],
+        [
+          "s",
+          233
+        ],
+        [
+          "_",
+          129
+        ],
+        [
+          "(",
+          129
+        ],
+        [
+          ")",
+          99
+        ],
+        [
+          "`",
+          82
+        ],
+        [
+          "0",
+          77
+        ]
+      ],
+      "whitespace": [
+        [
+          "\n",
+          594
+        ],
+        [
+          " ",
+          180
+        ]
+      ],
+      "multi_char": [
+        [
+          "       ",
+          912
+        ],
+        [
+          " the",
+          416
+        ],
+        [
+          "           ",
+          410
+        ],
+        [
+          "   ",
+          403
+        ],
+        [
+          " =",
+          265
+        ],
+        [
+          " is",
+          235
+        ],
+        [
+          ":\n",
+          233
+        ],
+        [
+          " to",
+          222
+        ],
+        [
+          " None",
+          209
+        ],
+        [
+          " :",
+          202
+        ]
+      ],
+      "special": []
+    }
+  }
+}

@@ -1,0 +1,9 @@
+Legal Documents Corpus Statistics
+==================================================
+
+Number of documents: 16
+Total characters: 44,891
+Total lines: 2,105
+Total size: 0.04 MB
+Average chars per document: 2,806
+Data source: Case.law API, CourtListener, Cornell LII
