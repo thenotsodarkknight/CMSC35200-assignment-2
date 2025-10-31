@@ -9,7 +9,7 @@
 
 I analyzed Byte-Pair Encoding (BPE) tokenization performance across two text domains with distinct characteristics: **Movie Scripts** (structured screenplay format) and **Python Code** (programming language). I trained custom tokenizers using the nanochat framework and compared performance against three standard tokenizers (GPT-2, cl100k_base, o200k_base).
 
-**Key Results:**
+**Results:**
 - Movie Scripts: nanochat achieves 3.20 bytes/token, competitive with standards
 - Python Code: nanochat achieves 3.89 bytes/token, outperformed by cl100k (4.61)
 - Both domains reveal BPE limitations in capturing domain-specific structure
@@ -29,13 +29,6 @@ I analyzed Byte-Pair Encoding (BPE) tokenization performance across two text dom
 ## 1. Introduction
 
 Tokenization converts raw text into discrete units for model consumption. While general-purpose tokenizers excel at natural language, specialized domains may benefit from or suffer under standard approaches.
-
-### Research Questions
-
-1. How does BPE perform on structured formats (screenplays, code)?
-2. Can domain-specific tokenizers compete with large general tokenizers?
-3. What domain-specific patterns do tokenizers capture or miss?
-4. How can tokenization be improved for these domains?
 
 ### Methodology
 
@@ -71,12 +64,11 @@ Movie scripts follow the **screenplay format**, a highly structured notation for
 **Source**: Internet Movie Script Database (IMSDB) - publicly available scripts
 
 **Collection Method:**
-```python
-# Direct HTTP requests to IMSDB
-# Extract from HTML <pre> tags
-# Clean HTML entities
-# Verify substantial content (>5000 chars)
-```
+-  Direct HTTP requests to IMSDB
+-  Extract from HTML <pre> tags
+-  Clean HTML entities
+-  Verify substantial content (>5000 chars)
+
 
 **Scripts Collected** (12 total):
 1. The Matrix (150K chars)
